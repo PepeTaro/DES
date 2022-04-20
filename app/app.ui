@@ -106,7 +106,7 @@
             <item>
              <widget class="QLabel" name="dec_symkey_left_label">
               <property name="text">
-               <string>暗号化共通鍵</string>
+               <string>共通鍵</string>
               </property>
              </widget>
             </item>
@@ -131,7 +131,7 @@
             <item>
              <widget class="QLabel" name="symkey_left_label">
               <property name="text">
-               <string>共通鍵</string>
+               <string>暗号化共通鍵</string>
               </property>
              </widget>
             </item>
