@@ -59,7 +59,7 @@ Sboxes = [S1_table,S2_table,S3_table,S4_table,
 
 def access_sbox(bits6,sbox_index):
     """
-    DESの使用に従ってbits6とsbox_indexから対応するsboxの値を取得して、
+    DESの仕様に従ってbits6とsbox_indexから対応するsboxの値を取得して、
     その値を返す。
 
     Args:
