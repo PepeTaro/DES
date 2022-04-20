@@ -28,12 +28,16 @@
               <item>
                <widget class="QLabel" name="pubkey_left_label">
                 <property name="text">
-                 <string>公開鍵</string>
+                 <string>公開鍵(n,e)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="pubkey_left_lineEdit"/>
+               <widget class="QLineEdit" name="pubkey_left_lineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -42,19 +46,23 @@
               <item>
                <widget class="QLabel" name="privkey_left_label">
                 <property name="text">
-                 <string>秘密鍵</string>
+                 <string>秘密鍵(d,p,q)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="privkey_left_lineEdit"/>
+               <widget class="QLineEdit" name="privkey_left_lineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
            </layout>
           </item>
           <item row="1" column="0">
-           <widget class="QPushButton" name="asymkey_pushButton">
+           <widget class="QPushButton" name="gen_asymkey_pushButton">
             <property name="text">
              <string>生成</string>
             </property>
@@ -74,12 +82,16 @@
           <item>
            <widget class="QLabel" name="label_7">
             <property name="text">
-             <string>公開鍵</string>
+             <string>公開鍵(n,e)</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit_5"/>
+           <widget class="QLineEdit" name="pubkey_right_lineEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -99,7 +111,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="dec_symkey_left_lineEdit"/>
+             <widget class="QLineEdit" name="dec_symkey_left_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -120,7 +136,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="symkey_left_lineEdit"/>
+             <widget class="QLineEdit" name="symkey_left_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -145,14 +165,18 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QPushButton" name="symkey_gen_pushButton">
+             <widget class="QPushButton" name="gen_symkey_pushButton">
               <property name="text">
                <string>生成</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0" colspan="2">
-             <widget class="QLineEdit" name="symkey_right_lineEdit"/>
+             <widget class="QLineEdit" name="symkey_right_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -173,7 +197,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="enc_symkey_right_lineEdit"/>
+             <widget class="QLineEdit" name="enc_symkey_right_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -216,7 +244,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="cipher_left_plainTextEdit"/>
+             <widget class="QPlainTextEdit" name="cipher_left_plainTextEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -241,7 +273,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="plain_right_plainTextEdit"/>
+             <widget class="QPlainTextEdit" name="plain_right_plainTextEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -262,7 +298,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="cipher_right_plainTextEdit"/>
+             <widget class="QPlainTextEdit" name="cipher_right_plainTextEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>

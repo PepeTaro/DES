@@ -3,6 +3,12 @@ import number_theory
 def _swap(p,q):
     return (q,p)
 
+def generate_keys256():
+    return generate_keys(256)
+
+def generate_keys512():
+    return generate_keys(512)
+
 def generate_keys1024():
     return generate_keys(1024)
 
