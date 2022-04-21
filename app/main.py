@@ -8,7 +8,8 @@ import des
 import random
 
 from PyQt5 import QtWidgets,uic
-from PyQt5.QtWidgets import QMessageBox # エラー時のポップアップ用。
+from PyQt5.QtCore import QObject, QThread, pyqtSignal
+from PyQt5.QtWidgets import QWidget,QMessageBox
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
@@ -70,24 +71,7 @@ class Ui(QtWidgets.QMainWindow):
         """
         公開鍵と秘密鍵を生成。
         """
-        
-        [(n,e),(d,p,q)] = rsa.generate_keys256()        
-        self.n = n
-        self.e = e
-        self.d = d
-        self.p = p
-        self.q = q
-
-        # lineEditに表示するために鍵を文字列に変換
-        pubkey_str = "("+hex(self.n)+","+hex(self.e)+")"
-        privkey_str = "("+hex(self.d)+","+hex(self.p)+","+hex(self.q)+")"
-
-        # 上記の文字列を表示。
-        self.pubkey_left_lineEdit.setText(pubkey_str)
-        self.privkey_left_lineEdit.setText(privkey_str)
-
-        # 非対称鍵が生成されたことを示すフラグをオン。
-        self.is_asymkey_generated = True
+        self.generate_asym_keys() # 多少時間がかかるため、スレッドを使用して鍵生成。
         
     def pubkey_send(self):
         """
@@ -108,7 +92,8 @@ class Ui(QtWidgets.QMainWindow):
         """
         共通鍵を生成。
         """
-        
+
+        # HACK:共通鍵の乱数は高速に生成できると仮定してスレッドを使用しない。
         self.key = random.randrange(0,2**64)
         self.IV = random.randrange(0,2**64)        
         self.symkey_right_lineEdit.setText(hex(self.key))
@@ -212,6 +197,49 @@ class Ui(QtWidgets.QMainWindow):
 
         # メッセージが送信されたことを示すフラグをオン。
         self.is_message_sent = True
+
+    ### 以下スレッド関連のメソッド ###
+        
+    def signal_rsa_keys(self,keys):
+        [(n,e),(d,p,q)] = keys
+        self.n = n
+        self.e = e
+        self.d = d
+        self.p = p
+        self.q = q
+        
+        # lineEditに表示するために鍵を文字列に変換
+        pubkey_str = "("+hex(self.n)+","+hex(self.e)+")"
+        privkey_str = "("+hex(self.d)+","+hex(self.p)+","+hex(self.q)+")"
+
+        # 上記の文字列を表示。
+        self.pubkey_left_lineEdit.setText(pubkey_str)
+        self.privkey_left_lineEdit.setText(privkey_str)
+
+        # 非対称鍵が生成されたことを示すフラグをオン。
+        self.is_asymkey_generated = True
+
+    def generate_asym_keys(self):
+        self.thread = QThread()
+        self.worker = GenAsymkeysWorker()
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+        self.worker.finished.connect(self.signal_rsa_keys)
+
+        self.thread.start()
+        self.gen_asymkey_pushButton.setEnabled(False) # 生成ボタンを押せないようにする。
+        self.thread.finished.connect(
+            lambda: self.gen_asymkey_pushButton.setEnabled(True) # 終わったら生成ボタンを押せるようにする。
+        ) 
+
+class GenAsymkeysWorker(QObject):
+    finished = pyqtSignal(list)
+    def run(self):
+        [(n,e),(d,p,q)] = rsa.generate_keys1024()
+        self.finished.emit([(n,e),(d,p,q)])
 
 def main():    
     app = QtWidgets.QApplication(sys.argv)
