@@ -163,7 +163,7 @@ class Ui(QtWidgets.QMainWindow):
         plaintext = self.plain_left_plainTextEdit.toPlainText()
         self.ciphertext = des.enc(plaintext,b_key,b_IV)        
         self.cipher_left_plainTextEdit.setPlainText(des.ascii_decode(self.ciphertext))
-
+        
         # メッセージが暗号化されたことを示すフラグをオン。
         self.is_message_encrypted = True
         

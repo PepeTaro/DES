@@ -14,5 +14,8 @@
 * メッセージは英語のみ対応。(デモのため日本語対応は割愛)
 * ネットワーク機能はなし。
 
-### デモ
+### デモ(app/main.py)
 ![sample1.png](images/sample1.png)
+
+### 参考文献
+* Understanding Cryptography: A Textbook for Students and Practitioners
